@@ -1,86 +1,58 @@
 ---
 title: 'Quickstart'
-description: 'Start building awesome documentation in under 5 minutes'
+description: 'Follow the steps below (in order) to get up and running in 5 minutes!'
 ---
 
-## Setup your development
+## 1. Cloning the Repo
+In your terminal run the following commands individually
 
-Learn how to update your docs locally and and deploy them to the public.
+```terminal terminal
+git clone link [YOUR APP NAME]
+```
+```terminal terminal
+cd [YOUR APP NAME]
+```
+```terminal terminal
+npm install
+```
+```terminal terminal
+git remote remove origin
+```
 
-### Edit and preview
+## 2. Environment Variable Setup
+In the route directory of the project, create a `.env` file and input the following
+```terminal .env
+BASE_URL=http://localhost:5173/
+MAILJET_API_KEY=
+MAILJET_SECRET_KEY=
+STRIPE_SECRET_KEY=
+TRELLO_QUEUE=
+TRELLO_TOKEN=
+```
 
-<AccordionGroup>
-  <Accordion icon="github" title="Clone your docs locally">
-    During the onboarding process, we created a repository on your Github with
-    your docs content. You can find this repository on our
-    [dashboard](https://dashboard.mintlify.com). To clone the repository
-    locally, follow these
-    [instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-    in your terminal.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Preview changes">
-    Previewing helps you make sure your changes look as intended. We built a
-    command line interface to render these changes locally. 1. Install the
-    [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the
-    documentation changes locally with this command: ``` npm i -g mintlify ```
-    2. Run the following command at the root of your documentation (where
-    `mint.json` is): ``` mintlify dev ```
-  </Accordion>
-</AccordionGroup>
+## 3. Supabase
+<Steps>
+  <Step title="Start a project">
+    Head over to <a href="https://supabase.com" target="_blank">Supabase</a> and create a new project
+  </Step>
+  <Step title="Get API credentials">
+    Within your project dashboard, go to Project Settings and then click API
+  </Step>
+  <Step title="Paste into app">
+    Copy and paste the project URL and the `anon` `public` API key into `hooks.ts`
+    ```typescript src/hooks.ts
+    // Supabase client
+    const SUPABASE_URL = [YOUR URL]
+    const SUPABASE_ANON_KEY = [YOUR API KEY]
 
-### Deploy your changes
+    ```
+    <Note>It is completely safe to expose your public Supabase API key, the <a href="features/database" target="_blank">Database</a> section covers this in more detail</Note>
+  </Step>
+</Steps>
 
-<AccordionGroup>
-
-<Accordion icon="message-bot" title="Install our Github app">
-  Our Github app automatically deploys your changes to your docs site, so you
-  don't need to manage deployments yourself. You can find the link to install on
-  your [dashboard](https://dashboard.mintlify.com). Once the bot has been
-  successfully installed, there should be a check mark next to the commit hash
-  of the repo.
-</Accordion>
-<Accordion icon="rocket" title="Push your changes">
-  [Commit and push your changes to
-  Git](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
-  for your changes to update in your docs site. If you push and don't see that
-  the Github app successfully deployed your changes, you can also manually
-  update your docs through our [dashboard](https://dashboard.mintlify.com).
-</Accordion>
-
-</AccordionGroup>
-
-## Update your docs
-
-Add content directly in your files with MDX syntax and React components. You can use any of our components, or even build your own.
-
-<CardGroup>
-
-<Card title="Style Your Docs" icon="paintbrush" href="/settings/global">
-  Add flair to your docs with personalized branding.
-</Card>
-
-<Card
-  title="Add API Endpoints"
-  icon="square-code"
-  href="/api-playground/configuration"
->
-  Implement your OpenAPI spec and enable API user interaction.
-</Card>
-
-<Card
-  title="Integrate Analytics"
-  icon="chart-mixed"
-  href="/analytics/supported-integrations"
->
-  Draw insights from user interactions with your documentation.
-</Card>
-
-<Card
-  title="Host on a Custom Domain"
-  icon="browser"
-  href="/settings/custom-domain/subdomain"
->
-  Keep your docs on your own website's subdomain.
-</Card>
-
-</CardGroup>
+## 4. Development Server (localhost)
+To start the development server you can use the following command
+```terminal terminal
+npm run dev
+```
+<Warning>Without setting up Supabase, your app will not be able to start the development server</Warning>

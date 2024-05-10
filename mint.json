@@ -23,14 +23,13 @@
     {
       "group": "Get Started",
       "pages": [
-        "introduction",
         "quickstart"
       ]
     },
     {
       "group": "Features",
       "pages": [
-        "features/auth",
+        "features/authentication",
         "features/database",
         "features/payments",
         "features/emails",
