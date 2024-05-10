@@ -66,9 +66,9 @@ Out of the box, sveltepack has traditional email/password authentication for use
             <h2>Reset Password</h2>
 
             <p>Follow this link to reset the password for your user:</p>
-            <p><a href="{{ .SiteURL }}/update-password">Reset Password</a></p>
+            <p><a href="{{ .ConfirmationURL }}update-password">Reset Password</a></p>
             ```
-            You may wish to change the styling but ensure that the your redirect link points to `{{ .SiteURL }}/update-password` as shown above
+            You may wish to change the styling but ensure that the your reset link points to `{{ .ConfirmationURL }}update-password` as shown above
         </Step>
         </Steps>
 
