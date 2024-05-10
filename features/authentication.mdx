@@ -6,3 +6,119 @@ icon: 'user'
 
 <Warning>Make sure you have completed the <a href="quickstart#3-supabase" target="_blank">Supabase setup</a> before continuing with the section</Warning>
 
+## Authentication in sveltepack
+Out of the box, sveltepack has traditional email/password authentication for users
+
+<AccordionGroup>
+    <Accordion title="Register">
+        The /register route hosts a form for users to create accounts.
+
+        The `registrationHandler` function handles requests in the following ways:
+        <Tabs>
+            <Tab title="Success">
+                User will be logged in. Add your business logic to the function (see comment in `/register/+page.svelte`). Consider navigating authenticated users a dashboard or other route.
+            </Tab>
+            <Tab title="Error">
+                Trigger a toast and remain on the registration route. Will triggered if credentials and invalid.
+            </Tab>
+            <Tab title="Duplicate Account">
+                Trigger a toast and navigate to the login route.
+            </Tab>
+        </Tabs>
+    </Accordion>
+
+    <Accordion title="Login">
+        The /login route hosts a form for users log into their accounts.
+
+        The `loginHandler` function handles requests in the following ways:
+        <Tabs>
+            <Tab title="Success">
+                User will be logged in. Add your business logic to the function (see comment in `/login/+page.svelte`). Consider navigating authenticated users a dashboard or other route.
+            </Tab>
+            <Tab title="Error">
+                Trigger a toast and stays on login page. For account safety, the same general error toast will appear regardless of whether the credentials are incorrect or invalid.
+            </Tab>
+        </Tabs>
+    </Accordion>
+
+    <Accordion title="Logout">
+        Once a user is logged in, on the login page you will see a Sign Out button. The authentication state is available globally through the app and a logout button can be created anywhere through following snippet:
+        ```typescript
+        {#if $userTokenStore}
+            <button on:click={() => supabase.auth.signOut()}>Sign Out</button>
+        {/if}
+        ```
+        The `$userTokenStore` will hold the auth state and you can use it to dynamically display a sign out button on your app.
+
+        <Note>Don't forget to import the store for your $lib</Note>
+    </Accordion>
+
+    <Accordion title="Reset Password">
+        #### Setup
+        Navigate to <a href="https://supabase.com" target="_blank">Supabase</a> and head to your project's dashboard.
+        <Steps>
+        <Step title="Configure Site URL">
+            Go to Authentication, then click URL Configuration, change your site url. For testing you can use localhost if you wish.
+        </Step>
+        <Step title="Configure Site URL">
+            Still under Authentication, click Email Templates. Go to the Reset Password template and enter the following:
+            ```html
+            <h2>Reset Password</h2>
+
+            <p>Follow this link to reset the password for your user:</p>
+            <p><a href="{{ .SiteURL }}/update-password">Reset Password</a></p>
+            ```
+            You may wish to change the styling but ensure that the your redirect link points to `{{ .SiteURL }}/update-password` as shown above
+        </Step>
+        </Steps>
+
+        #### Usage
+        The /reset-password route hosts a form for users reset their own password.
+
+        The `resetPasswordHandler` function handles requests in the following ways:
+        <Tabs>
+            <Tab title="Success">
+                A toast will be trigger and if account is found a magic link will be sent to the user's email. Clicking the link will log in the user and they can update their password.
+            </Tab>
+            <Tab title="Error">
+                A toast will be triggered and nothing will happen.
+            </Tab>
+        </Tabs>
+
+        <Warning>Supabase has rate limits for emails and it is recommended that you send emails through your own provider</Warning>
+    </Accordion>
+
+    <Accordion title="Update Password">
+        The /update-password route hosts a form for users update their password after receiving a magic link via the password reset process.
+        
+        The `updatePasswordHandler` function handles requests in the following ways:
+        <Tabs>
+            <Tab title="Success">
+                A toast will be trigger and the user's password will be reset. Consider adding additional business logic to route the user elsewhere or force them to sign in again.
+            </Tab>
+            <Tab title="Error">
+                A toast will be triggered and nothing will happen.
+            </Tab>
+        </Tabs>
+    </Accordion>
+</AccordionGroup>
+
+## Protecting Routes
+In an effort to preserve simplicity, client side authentication is used. As a result, route protection will occur on the client side and should be paired with RLS policies to prevent sensitive data from getting into the wrong hands.
+
+With that, there is a handy route protection function in your $lib called `protectedRoute`. It can be imported to any page or layout using the following line:
+```typescript
+import { protectedRoute } from '$lib';
+```
+And you can use it by wrapping it in an onMount function within your page or layout.
+```typescript
+onMount(async () => {
+    protectedRoute()
+})
+```
+The function will redirect unauthenticated users to the login page.
+
+<Warning>Data fetching may still occur before user is redirected, so be sure to use RLS on your tables. The <a href="features/database" target="_blank">Database</a> section will cover this in more detail.</Warning>
+
+## Third-Party Authentication Providers
+Supabase offers several authentication methods and providers. An indepth guide for each one can be found <a href="https://supabase.com/docs/guides/auth" target="_blank">here</a>.
