@@ -6,4 +6,41 @@ icon: 'microphone'
 
 ## Setup
 
+<Steps>
+    <Step title="Register">
+        Head over to <a href="https://www.trello.com/" target="_blank">Trello</a> and create an account.
+    </Step>
+    <Step title="Get API Keys">
+    https://trello.com/power-ups/admin
+        Go to the <a href="https://www.trello.com/" target="_blank">Power Ups Admin Panel</a> and create a new power up.
+
+        After you create a power up, go to the API Key section and generate a token. 
+
+        Paste the API Key and Token in your `.env` file.
+        ```terminal .env
+        TRELLO_KEY=[API KEY]
+        TRELLO_TOKEN=[TOKEN]
+        ```
+    </Step>
+    <Step title="Create a board and list">
+        Navigate back to the Trello dashboard and create a new board as well as at least one list named "Queue". 
+    </Step>
+    <Step title="Get board and list IDs">
+        While on your board, you will have a URL similar to to the following: `https://trello.com/b/[board-id]/[board-name]`.
+
+        Using the board-id, API key, and token, run this API call in your browser:
+        `https://api.trello.com/1/lists/[YOUR BOARD-ID]?key=[YOUR API KEY]&token=[YOUR TOKEN]`
+
+        This will return details about the lists within the your board. Copy the ID of the list you have named "Queue" and paste it into your  `.env` file:
+        ```terminal .env
+        TRELLO_QUEUE=[QUEUE ID]
+        ```
+    </Step>
+</Steps>
+
 ## Usage
+With the setup complete, the <a href="/components/extras#support" target="_blank">support modal form</a> will take submissions and send them to your Trello board. You can use this board to stay organized while managing user requests.
+
+The `src/routes/api/trello` route provides an example of how you can utilize Trello's API within your app.
+
+Trello API docs can be found <a href="https://developer.atlassian.com/cloud/trello/rest/" target="_blank">here</a>.
