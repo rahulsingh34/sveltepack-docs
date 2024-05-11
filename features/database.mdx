@@ -3,3 +3,36 @@ title: 'Database'
 description: 'Managing a PostgreSQL database with Supabase'
 icon: 'database'
 ---
+
+<Warning>Make sure you have completed the <a href="quickstart#3-supabase" target="_blank">Supabase setup</a> before continuing with the section</Warning>
+
+## Overview
+Supabase provides you with a great UI to manage your database and table. If you have already completed the <a href="quickstart#3-supabase" target="_blank">Supabase setup</a>, there is no additional setup required to get started with the database.
+
+<Tip>Take advantage of thh SQL editor in Supabase. You can limit the complexity of your app's codebase by creating views and functions in your database!</Tip>
+
+## CRUD Operations
+You can use <a href="https://supabase.com/docs/reference/javascript/start" target="_blank">Supabase docs</a> to learn the CRUD syntax.
+
+## Row-Level Security (RLS)
+Row-Level Security (RLS for short) restricts access to certain rows of data based on a user's permissions. This is why Supabase public keys can be exposed. By default, every new table you create will have RLS enabled but you will need to define policies to perform CRUD operations on it.
+
+In your Supabase project's dashboard, if you navigate to Authentication and then click Policies, you will see your tables. You will see if RLS is enabled and have the ability to create new policies.
+
+Supabase provides templates for the common RLS policies you may want such as allowing inserts for authenticated users only, or allowing users to delete rows only if the user id of the row matches their's.
+
+Since the polcies are defined in SQL, they can get pretty complex. However, most people only need basic policies such as the ones Supabase has templates for.
+
+<Tip>Don't reinvent the wheel, use ChatGPT to help you out!</Tip>
+
+### RLS Policy Structure
+```SQL
+create policy "policy_name" -- NAME OF POLICY
+on "public"."blogs" -- THE TABLE THE POLICY WILL EFFECT
+as PERMISSIVE -- HOW THE POLICY WILL BEHAVE WITH OTHERS (PERMISSIVE: ANY OF THE POLICIES ARE SATISFIED | RESTRICTIVE: ALL OF THE POLICIES ARE SATISFIED)
+for SELECT -- AFFECTED COMMAND
+to public -- AFFECTED ROLES
+using (
+    -- THE "FILTER" THAT DETERMINES ACCESS
+);
+```
