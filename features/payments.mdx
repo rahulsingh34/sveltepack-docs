@@ -5,5 +5,53 @@ icon: 'tag'
 ---
 
 ## Setup
+<Steps>
+    <Step title="Register">
+        Head over to <a href="https://www.stripe.com/" target="_blank">Stripe</a> and create an account and complete the registration.
+    </Step>
+    <Step title="Update Settings">
+        Be sure to go through the Payments settings and setup your branding and payment options.
+    </Step>
+    <Step title="Test Mode + API Keys">
+        Switch Stripe to Test Mode and go to the Developers tab. Get your Secret key. Paste them into the `.env` file:
+        ```terminal .env
+        STRIPE_SECRET_KEY=[TEST SECRET KEY]
+        ```
+    </Step>
+    <Step title="Create a product">
+        Head over to the product catalog and create at least one product. Go to `src/routes/api/stripe/+server.ts` and add in your product's price ID along with a name of your choice (id).
+
+        ```typescript src/routes/api/stripe/+server.ts
+        const items = [
+            {
+                id: 'any_unique_name', price_id: 'your_price_id'
+            },
+            ... // ADD MORE AS NEEDEED
+        ]
+        ```
+    </Step>
+</Steps>
 
 ## Usage
+With the setup complete, you will now be able to call the stripe checkout using a function in your $lib called `checkout` which takes a string as an argument.
+
+Say you have a product setup in your `src/routes/api/stripe/+server.ts` as:
+```typescript src/routes/api/stripe/+server.ts
+        const items = [
+            {
+                id: 'basic', price_id: 'price_XXXXXXXXXXX'
+            }
+        ]
+        ```
+You can call the stripe checkout anywhere in your app using: `checkout('basic')`
+
+## Webhooks
+Stripe webhooks are listened to on `src/routes/webhook/stripe/+server/.ts`.
+
+In the file above, you will see how you can listen to events that you are interested in using if or case statements.
+
+In the Stripe Developers section, you can click "Add endpoint" and test your webhooks locally before adding the actual endpoint url. 
+
+For testing and listening to events locally with the Stripe CLI, use `localhost:5173/webhook/stripe`. When you are ready to move into production your endpoint URL should be: `https://[your-domain.com]/webhook/stripe`.
+
+More information on Stripe's API and Webhooks, click <a href="https://docs.stripe.com/development" target="_blank">here</a>.
