@@ -3,3 +3,37 @@ title: 'SEO'
 description: 'Improving your search ranking'
 icon: 'magnifying-glass'
 ---
+
+## Meta Tags
+Within your `src/app.html` file, you will find a few meta tags that will be present throughout your app:
+```html app.html
+<meta name="application-name" content="">
+<meta name="description" content="">
+<meta name="keywords" content="">
+```
+
+You using the head fragment, you can add different meta tags for pages and layouts:
+```html
+<svelte:head>
+    <!- YOUR META TAGS HERE ->
+</svelte:head>
+```
+
+## OpenGraph Tags
+OpenGraph Tags are used for social sharing and its how you get good looking displays when you share a URL.
+
+In `src/routes/blogs/[slug]/+page.svelte` OpenGraph tags are dynamically generated through the data you provide on the <a href="/features/blog#blog-structure-example" target="_blank">blog structure</a>.
+
+You using the head fragment, you can add different OpenGraph Tags for pages and layouts outside of the blog:
+```html
+<svelte:head>
+    <!- YOUR OPENGRAPH TAGS HERE ->
+</svelte:head>
+```
+
+## Rich Text Snippets
+Ever notice how when you search up a receipe on Google there's a unique section that shows you receipes with reviews, time to make, ingredients, and more? These Rich Results help generate clicks for your site.
+
+There's a handy function in your $lib called `serializeSchema` that will take in a rich result schema and format it for your site. You can see it in action on `src/routes/blogs/[slug]/+page.svelte`, where it dynamically generates the blog (NewsArticle) schema from the data you provide on the <a href="/features/blog#blog-structure-example" target="_blank">blog structure</a>.
+
+More schemas can be found <a href="https://developers.google.com/search/docs/appearance/structured-data/search-gallery" target="_blank">here</a>.
