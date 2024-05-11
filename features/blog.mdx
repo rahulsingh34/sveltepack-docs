@@ -3,3 +3,99 @@ title: 'Blog'
 description: 'Creating your own headless CMS for free'
 icon: 'newspaper'
 ---
+
+<Warning>Make sure you have completed the <a href="quickstart#3-supabase" target="_blank">Supabase setup</a> before continuing with the section</Warning>
+
+## Setup
+<Steps>
+    <Step title="Go to Supabase">
+        Head over to <a href="https://www.supabase.com/" target="_blank">Supabase</a> and navigate to your project's dashboard.
+    </Step>
+    <Step title="Create blogs table">
+        Using the SQL Editor, create a table using the following SQL code:
+        ```SQL SQL Editor
+        create table
+            public.blogs (
+                id uuid not null default gen_random_uuid (),
+                created_at timestamp with time zone not null default now(),
+                content jsonb not null,
+                slug text not null default ''::text,
+                constraint blogs_pkey primary key (id)
+            ) tablespace pg_default;
+
+        alter table public.blogs enable row level security;
+        ```
+    </Step>
+    <Step title="Create RLS policy">
+        Add a new RLS policy that enables read access to the public (all users).
+        ![title](/images/RLS-blogs.png)
+    </Step>
+</Steps>
+
+## Usage
+The `/blogs` route will display all the blogs you have created.
+
+To create a blog you can insert a new row to the blogs table you have just created. You can use the blog structure below to define the blog and define a slug that will be used as the link on your site: `/blogs/[slug]`
+
+## Blog Structure Example
+
+<a href="https://sveltepack.com/blogs/demo-blog" target="_blank">Live Blog Example</a>
+
+```json 
+{
+  "date": "May, 2024",
+  "slug": "demo-blog",
+  "image": "https://jvridduomhemawbmtdjg.supabase.co/storage/v1/object/public/blog/demo-blog/sveltekit.png?t=2024-04-29T22%3A19%3A55.093Z",
+  "title": "Demo Blog",
+  "author": "sveltepack",
+  "content": [
+    {
+      "text": "Some title",
+      "type": "Title"
+    },
+    {
+      "text": "<p class='opacity-80'>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>",
+      "type": "Paragraph"
+    },
+    {
+      "type": "Bullet",
+      "items": [
+        "Item 1",
+        "Item 2",
+        "Item 3"
+      ]
+    },
+    {
+      "alt": "Some paragraph text",
+      "src": "https://jvridduomhemawbmtdjg.supabase.co/storage/v1/object/public/blog/demo-blog/sveltekit.png?t=2024-04-29T22%3A19%3A55.093Z",
+      "type": "ImageCenter"
+    },
+    {
+      "alt": "alt",
+      "src": "https://jvridduomhemawbmtdjg.supabase.co/storage/v1/object/public/blog/demo-blog/sveltekit.png?t=2024-04-29T22%3A19%3A55.093Z",
+      "text": "<p class='opacity-80'>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>",
+      "type": "ImageRight",
+      "subtitle": "Demo"
+    },
+    {
+      "alt": "alt",
+      "src": "https://jvridduomhemawbmtdjg.supabase.co/storage/v1/object/public/blog/demo-blog/sveltekit.png?t=2024-04-29T22%3A19%3A55.093Z",
+      "text": "<p><span><a class='underline text-primary-500 font-semibold' href='/'>CLICK THIS LINK!</a></span> <span class='opacity-80'>Contrary to popular belief, Lorem Ipsum is not simply random text.</span></p>",
+      "type": "ImageLeft",
+      "subtitle": "Demo"
+    }
+    ... // ADD MORE CONTENT BLOCKS AS NEEDED
+  ],
+  "category": "Tutorial",
+  "imageAlt": "Demo",
+  "authorUrl": "https://twitter.com/rahulsingh_ca",
+  "authorImage": "https://jvridduomhemawbmtdjg.supabase.co/storage/v1/object/public/blog/authors/87246122.jpeg?t=2024-04-20T21%3A37%3A58.038Z",
+  "description": "Demo Blog about SvelteKit and Svelte and making it look like a real blog"
+}
+```
+
+Within each content object, there is a "type" property that corresponds to a <a href="/components/extra#blog" target="_blank">component</a> found in `src/components/blog`. 
+
+In `src/routes/blogs/[slug]/+page.svelte` you will see how the blog gets dynamically rendered based on the "type" property.
+
+<Note>Blogs generated with the proper json structure will take advantage of the SEO optimizations in sveltepack. More on this can be found in the <a href="/features/seo" target="_blank">SEO section</a>.</Note>
