@@ -3,3 +3,39 @@ title: 'Styling'
 description: 'Build a sexy site with ease using Tailwind and Skeleton UI'
 icon: 'paintbrush'
 ---
+
+## UI Library
+The styling on sveltepack is from <a href="https://www.skeleton.dev/docs/introduction" target="_blank">Skeleton UI</a> which uses Tailwind CSS under the hood. Skeleton provides themes, components, animations, utilities, and design tokens to quickly build a good looking web app!
+
+## Custom Theme
+You can generate your own themes using Skeleton UI's <a href="https://www.skeleton.dev/docs/generator" target="_blank">theme generator</a>.
+
+You can copy your generated theme to a new `.ts` file in the `src/` folder of your app and add your theme to the `tailwind.config.ts`. Assuming your theme file is `custom_theme.ts`:
+```typescript tailwind.config.ts
+import { custom_theme } from './src/custom_theme'
+
+export default {
+    ...
+    plugins: [
+        ...
+        skeleton({
+            themes: {
+                preset: [
+                    ...
+                ],
+                custom: [
+					custom_theme // ADD YOUR THEME HERE
+				],
+            }
+        })
+    ]
+}
+```
+
+Assuming you have also named your theme "custom_theme", you can use it by referencing it in the the `data-theme` property of the body in your `app.html` file:
+```html app.html
+<body data-sveltekit-preload-data="hover" data-theme="custom_theme">
+    <div style="display: contents" class="h-full overflow-hidden">%sveltekit.body%</div>
+</body>
+```
+
