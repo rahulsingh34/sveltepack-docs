@@ -3,3 +3,55 @@ title: 'Footer'
 description: 'Guide for Footer.svelte component'
 icon: 'shoe-prints'
 ---
+
+This component will hold additional links and an email capture form.
+
+Location: `src/components/Footer.svelte`
+
+![Footer.svelte](/images/Footer.png)
+
+## Setup
+### Email Capture
+<Steps>
+    <Step title="Go to Supabase">
+        Head over to <a href="https://www.supabase.com/" target="_blank">Supabase</a> and navigate to your project's dashboard.
+    </Step>
+    <Step title="Create email_list table">
+        Using the SQL Editor, create a table using the following SQL code:
+        ```SQL SQL Editor
+        create table
+            public.email_list (
+                created_at timestamp with time zone not null default now(),
+                email text not null,
+                id uuid not null default gen_random_uuid (),
+                constraint email_list_pkey primary key (id)
+            ) tablespace pg_default;
+
+        alter table public.blogs enable row level security;
+        ```
+    </Step>
+    <Step title="Create RLS policy">
+        Add a new RLS policy that enables insert access to the public (all users).
+        ![RLS-email_list](/images/RLS-email-list.png)
+    </Step>
+</Steps>
+
+### Links
+There are two link sets that you can edit:
+
+```typescript Footer.svelte
+<script lang="ts>
+    ...
+    const linksOne = [
+            { name: 'Link One', href: '#linkOne', scroll: true },
+            ...
+        ]
+        
+        const linksTwo = [
+            { name: 'Link One', href: '/link-one', scroll: false },
+        ]
+    ...
+</script>
+```
+
+<Note>If `scroll: true` the link will scroll to the DOM element with the id that corresponds to the listed href. Otherwise the page will navigate to the link.</Note>
