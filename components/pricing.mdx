@@ -3,3 +3,31 @@ title: 'Pricing'
 description: 'Guide for Pricing.svelte component'
 icon: 'tag'
 ---
+
+This component provides a sleek section for explaining your pricing options.
+
+Location: `src/components/Pricing.svelte`
+
+![Pricing.svelte](/images/Pricing.png)
+
+To change the price cards and their details you can edit the `cards` array:
+```typescript Pricing.svelte
+<script lang="ts>
+    ...
+    let cards = [
+        {
+            id: 'basic', // SET ID TO THE SAME VALUE AS DEFINED IN YOUR src/routes/api/stripe/+server.ts
+            name: 'Basic', // DISPLAY NAME
+            original: 100, // ORIGINAL PRICE
+            price: 50, // SALE PRICE
+            included: ['Feature 1', ...], // FEATURES INCLUDED 
+            excluded: ['Feature 2'...], // FEATURES EXCLUDED
+            highlighted: true // TRUE OR FALSE BASED ON THE CARD YOU WANT TO HIGHLIGHT AS "POPULAR" 
+        },
+        ...
+    ];
+    ...
+</script>
+```
+
+<Warning>For the Stripe checkout function to work, the `id` property must be the same as you defined in `src/routes/api/stripe/+server.ts`. See the <a href="/features/payments#usage" target="_blank">Payments section</a> for more details.</Warning>
