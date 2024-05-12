@@ -57,8 +57,7 @@
       "group": "Extra",
       "pages": [
         "extra/deployment",
-        "extra/ddos-protection",
-        "extra/free-email"
+        "extra/ddos-protection"
       ]
     }
   ],
