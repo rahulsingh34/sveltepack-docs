@@ -3,3 +3,21 @@ title: 'Featured Logos'
 description: 'Guide for Logos.svelte component'
 icon: 'crown'
 ---
+
+This component can be used to show off where your product is features or who's using it.
+
+Location: `src/components/Logos.svelte`
+
+![Logos.svelte](/images/Logos.png)
+
+You can add logos to this component using the `logos` array:
+```typescript Logos.svelte
+<script lang="ts">
+    ...
+    const logos = [
+        { image: [YOUR IMAGE LINK], href: [LINK WHEN IMAGE IS CLICKED], alt: [ALT TAG] },
+            ...
+    ];
+    ...
+</script>
+```
