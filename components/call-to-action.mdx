@@ -3,3 +3,28 @@ title: 'Call to Action (CTA)'
 description: 'Guide for CtaOne.svelte and CtaTwo.svelte component'
 icon: 'megaphone'
 ---
+
+These components give you the ability to quickly explain your value proposition and draw attention to the problem you can help the user with.
+
+## CTA One
+
+Location: `src/components/CtaOne.svelte`
+
+![CtaOne.svelte](/images/CtaOne.png)
+
+You can change the list of benefits by editing the `benefits` array as shown below:
+```typescript CtaOne.svelte
+<script lang="ts>
+...
+const benefits: string[] = ["Benefit One", "Benefit Two", ...]
+...
+</script>
+```
+
+## CTA Two
+
+Location: `src/components/CtaTwo.svelte`
+
+![CtaTwo.svelte](/images/CtaTwo.png)
+
+You can add a an `on:click` handler to the button to call the checkout or scroll to the pricing section using the custom functions defined in your $lib (`checkout` or `scrollIntoView`).
