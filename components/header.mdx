@@ -3,3 +3,23 @@ title: 'Header'
 description: 'Guide for Header.svelte component'
 icon: 'head-side'
 ---
+
+This component will hold your logo, nav links, and a CTA button. On mobile it will automatically collapse into a hamburger button.
+
+Location: `src/components/Header.svelte`
+
+![Header.svelte](/images/Header.png)
+
+To change links you can edit the `navLinks` array:
+
+<Note>Updating the links array will change both desktop and mobile nav!</Note>
+
+```
+<script lang="ts>
+    const navLinks = [
+        { name: 'Link Name', href: '#link-name' },
+        ...
+    ];
+</script>
+```
+<Note>To utilize the scrolling feature, you will need to add the href chosen for the nav link to an element on the page. See the `Pricing.svelte` component for a demo.</Note>
