@@ -37,12 +37,12 @@ With the setup complete, you will now be able to call the stripe checkout using 
 
 Say you have a product setup in your `src/routes/api/stripe/+server.ts` as:
 ```typescript src/routes/api/stripe/+server.ts
-        const items = [
-            {
-                id: 'basic', price_id: 'price_XXXXXXXXXXX'
-            }
-        ]
-        ```
+const items = [
+    {
+        id: 'basic', price_id: 'price_XXXXXXXXXXX'
+    }
+]
+ ```
 You can call the stripe checkout anywhere in your app using: `checkout('basic')`
 
 ## Webhooks
