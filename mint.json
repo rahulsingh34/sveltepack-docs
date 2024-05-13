@@ -3,12 +3,12 @@
   "name": "sveltepack",
   "favicon": "/favicon.png",
   "colors": {
-    "primary": "#6375a2",
-    "light": "#a8bdf1",
-    "dark": "#6375a2",
+    "primary": "#3B81F6",
+    "light": "#3B81F6",
+    "dark": "#3B81F6",
     "anchors": {
-      "from": "#a8bdf1",
-      "to": "#a8bdf1"
+      "from": "#3B81F6",
+      "to": "#3B81F6"
     }
   },
   "topbarCtaButton": {
