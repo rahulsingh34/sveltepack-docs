@@ -43,7 +43,9 @@
       "group": "Components",
       "pages": [
         "components/header",
+        "components/hero",
         "components/logos",
+        "components/how-it-works",
         "components/call-to-action",
         "components/benefits",
         "components/about",
