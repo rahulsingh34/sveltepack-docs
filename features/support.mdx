@@ -29,7 +29,7 @@ icon: 'microphone'
         While on your board, you will have a URL similar to to the following: `https://trello.com/b/[board-id]/[board-name]`.
 
         Using the board-id, API key, and token, run this API call in your browser:
-        `https://api.trello.com/1/lists/[YOUR BOARD-ID]?key=[YOUR API KEY]&token=[YOUR TOKEN]`
+        `https://api.trello.com/1/boards/[YOUR BOARD-ID]/lists?key=[YOUR API KEY]&token=[YOUR TOKEN]`
 
         This will return details about the lists within the your board. Copy the ID of the list you have named "Queue" and paste it into your  `.env` file:
         ```terminal .env
