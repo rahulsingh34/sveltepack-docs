@@ -16,7 +16,7 @@ Out of the box, sveltepack has traditional email/password authentication for use
         The `registrationHandler` function handles requests in the following ways:
         <Tabs>
             <Tab title="Success">
-                User will be logged in. Add your business logic to the function (see comment in `/register/+page.svelte`). Consider navigating authenticated users a dashboard or other route.
+                User will be logged in and redirected to dashboard.
             </Tab>
             <Tab title="Error">
                 Trigger a toast and remain on the registration route. Will triggered if credentials and invalid.
@@ -33,7 +33,7 @@ Out of the box, sveltepack has traditional email/password authentication for use
         The `loginHandler` function handles requests in the following ways:
         <Tabs>
             <Tab title="Success">
-                User will be logged in. Add your business logic to the function (see comment in `/login/+page.svelte`). Consider navigating authenticated users a dashboard or other route.
+                User will be logged in and redirected to dashboard.
             </Tab>
             <Tab title="Error">
                 Trigger a toast and stays on login page. For account safety, the same general error toast will appear regardless of whether the credentials are incorrect or invalid.
@@ -42,7 +42,7 @@ Out of the box, sveltepack has traditional email/password authentication for use
     </Accordion>
 
     <Accordion title="Logout">
-        Once a user is logged in, on the login page you will see a Sign Out button. The authentication state is available globally through the app and a logout button can be created anywhere through following snippet:
+        A logged in user can log out by clicking the avatar on the top right, then clicking sign out in the dropdown menu. The authentication state is available globally through the app and a logout button can be created anywhere through following snippet:
         ```typescript
         {#if $userTokenStore}
             <button on:click={() => supabase.auth.signOut()}>Sign Out</button>
@@ -50,7 +50,7 @@ Out of the box, sveltepack has traditional email/password authentication for use
         ```
         The `$userTokenStore` will hold the auth state and you can use it to dynamically display a sign out button on your app.
 
-        <Note>Don't forget to import the store for your $lib</Note>
+        <Note>Don't forget to import the store from your $lib</Note>
     </Accordion>
 
     <Accordion title="Reset Password">
